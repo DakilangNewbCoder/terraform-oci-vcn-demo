@@ -19,7 +19,7 @@ jobs:
         with:
           path: .
           changelog-path: CHANGELOG.md
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_TOKEN }}
           release-type: terraform-module
           package-name: ${{ github.event.repository.name }}
           monorepo-tags: true
@@ -33,7 +33,7 @@ jobs:
         with:
           path: .
           changelog-path: CHANGELOG.md
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.REPO_TOKEN }}
           release-type: terraform-module
           monorepo-tags: true
           package-name: ${{ github.event.repository.name }}
