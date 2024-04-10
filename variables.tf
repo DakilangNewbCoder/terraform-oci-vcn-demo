@@ -3,12 +3,12 @@
 
 variable "compartment_id" {
   description = "Compartment's OCID where VCN will be created."
-  type = string
+  type        = string
 }
 
 variable "service_label" {
   description = "A service label to be used as part of resource names."
-  type = string
+  type        = string
 }
 
 variable "service_gateway_cidr" {
