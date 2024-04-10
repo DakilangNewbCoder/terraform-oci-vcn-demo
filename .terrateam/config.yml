@@ -1,0 +1,3 @@
+dirs:
+    when_modified:
+      file_patterns: []
