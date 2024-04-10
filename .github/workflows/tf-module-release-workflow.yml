@@ -1,0 +1,40 @@
+name: Release please workflow
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+  packages: write
+
+jobs:
+  release-pr:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: release-please
+        with:
+          path: .
+          changelog-path: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: terraform-module
+          package-name: ${{ github.event.repository.name }}
+          monorepo-tags: true
+          command: release-pr
+
+  release-please-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: google-github-actions/release-please-action@v3
+        id: tag-release
+        with:
+          path: .
+          changelog-path: CHANGELOG.md
+          token: ${{ secrets.GITHUB_TOKEN }}
+          release-type: terraform-module
+          monorepo-tags: true
+          package-name: ${{ github.event.repository.name }}
+          command: github-release

@@ -1,0 +1,35 @@
+name: Terraform Modules PR Workflow
+
+on:
+  pull_request:
+
+permissions:
+  pull-requests: write
+  contents: write
+
+jobs:
+  update-readme:
+    name: Update README for changed modules
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+            ref: ${{ github.event.pull_request.head.ref }}
+        
+      - name: Render terraform docs and push changes back to PR
+        uses: terraform-docs/gh-actions@v1
+        with:
+          output-file: README.md
+          output-method: inject
+          git-push: "true"
+
+  module-review:
+    name: Individual module review
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - run: terraform init
+      - run: terraform fmt -diff -check
+      - run: terraform validate
